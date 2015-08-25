@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class LoginActivity extends Activity {
 
-    // Declaração dos botoes
+    // Declaracao dos botoes
     Button btUser;
     Button btDriver;
 
@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
         btDriver.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                //botão motorista inicia a activity DriverActivity
+                //botao motorista inicia a activity DriverActivity
                 Intent intent = new Intent(LoginActivity.this,
                         DriverActivity.class);
                 startActivity(intent);
@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
         btUser.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                //Activity Usuário ainda não implementada
+                //Activity Usuario ainda nao implementada
                 Intent intent = new Intent(LoginActivity.this,
                         UserActivity.class);
                 startActivity(intent);

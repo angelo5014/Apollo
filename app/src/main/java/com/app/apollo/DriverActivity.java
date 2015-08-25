@@ -84,7 +84,7 @@ public class DriverActivity extends Activity {
 
     //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
     private void paradaFechada(double idParada){
-        String resposta = WebService.acesso(URL + "fecharSol" + "/" + idParada);
+        String resposta = WebService.acesso(URL + "fecharSolParada" + "/" + idParada);
     }
 
 
