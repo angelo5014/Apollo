@@ -26,7 +26,7 @@ public class DriverActivity extends Activity {
 
     private RelativeLayout tela;
     private boolean batata = true;
-    private double idParada;
+    private double idParada = 1;
 
 
 

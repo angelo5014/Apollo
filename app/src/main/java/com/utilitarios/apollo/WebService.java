@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class WebService {
 
-    static String teste = "0";
+    static String teste = "";
 
     public static String acesso(String urlStr) {
         final String url = urlStr;
@@ -27,8 +27,6 @@ public class WebService {
                 try {
                     in = openHttpConnection(url);
                     teste = convInputToString.fromStream(in);
-                    System.out.println(teste);
-                    Log.d("LODJNDJDMF", teste);
                     in.close();
                 }
 
