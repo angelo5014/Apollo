@@ -3,6 +3,7 @@ package com.app.apollo;
 import com.utilitarios.apollo.*;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -37,6 +38,16 @@ public class DriverActivity extends Activity {
         setupElements();
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
     private void setupElements(){
