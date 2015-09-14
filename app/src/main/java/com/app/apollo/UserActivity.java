@@ -27,7 +27,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranging);
+        setContentView(R.layout.user);
         beaconManager = BeaconManager.getInstanceForApplication(this);
 
         beaconManager.getBeaconParsers().add(new BeaconParser().
@@ -56,33 +56,32 @@ public class UserActivity extends Activity implements BeaconConsumer {
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
                     firstBeacon = beacons.iterator().next();
-                    logToDisplay("The first beacon I see is about " + beacons.iterator().next().getDistance() + " meters away.");
-                    Log.d(TAG, "The first beacon I see is about " + beacons.iterator().next().getDistance() + " meters away.");
+                    logToDisplay("The first beacon I see is about " + firstBeacon.getDistance() + " meters away.");
+                    Log.d(TAG, "The first beacon I see is about " + firstBeacon.getDistance() + " meters away.");
 
-                    IDbeacon[aux] = firstBeacon.toString();
+                   //IDbeacon[aux] = firstBeacon.toString();
                     aux++;
                     if (aux >= 1) {
                         aux = 0;
                     }
                     if (!solAberta) {
-                        if (IDbeacon[1] != null) {
+                  /*      if (IDbeacon[1] != null) {
                             if (IDbeacon[0].equalsIgnoreCase(IDbeacon[1])) {
-                                aux2++;
+                               aux2++;
                                 if (aux2 > 6) {
                                     aux2 = 0;
-                                    definitiveBeacon = firstBeacon;
-                                    if (definitiveBeacon.getDistance() < 3.0) {
-                                        contador++;
-                                    }
-                                    if (contador < 5) {
+                                    definitiveBeacon = firstBeacon;*/
+                                    if (firstBeacon.getDistance() < 3.0) {
+
+                                    if (contador < 6) {
                                         contador = 0;
                                         logToDisplay("ABRIUUU" + WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrirSolParada/1"));
                                         solAberta = true;
                                     }
-                                } else {
+                               /* } else {
                                     logToDisplay("Há interferência de um outro beacon");
-                                }
-                            }
+                                }*/
+                 //           }
                         }
                     }
                 }else{

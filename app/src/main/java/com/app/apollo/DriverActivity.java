@@ -27,7 +27,7 @@ public class DriverActivity extends Activity {
 
     private RelativeLayout tela;
     private boolean batata = true;
-    private double idParada = 1;
+    private double idParada;
 
 
 
@@ -88,8 +88,8 @@ public class DriverActivity extends Activity {
 
         String resposta = WebService.acesso(URL  + "atualizar" + "/" + "1" + "/" + latitude.toString() + "/" + longitude.toString());
         System.out.println(resposta);
-        Double respostaD = Double.parseDouble(resposta);
-        mudarTela(respostaD);
+        idParada = Double.parseDouble(resposta);
+        mudarTela(idParada);
 
     }
 
