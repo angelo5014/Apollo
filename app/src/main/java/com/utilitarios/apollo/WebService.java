@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class WebService {
 
-    static String teste = "";
+    static String teste = "0";
 
     public static String acesso(String urlStr) {
         final String url = urlStr;
