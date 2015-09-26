@@ -51,10 +51,10 @@ public class UserActivity extends Activity implements BeaconConsumer {
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
                     firstBeacon = beacons.iterator().next();
-                    if (solParada == false) {
+                    //if (!solParada) {
                         if (firstBeacon.getDistance() < 3) {
                             aux++;
-                            if (aux >= 5) {
+                            if (aux >4) {
                                 id = firstBeacon.getId1().toString();
                                 logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                         id.substring(id.length() - 1, id.length())));
@@ -62,7 +62,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                 solParada = true;
                             }
                         }
-                    } else if (aux == 0) {
+                  /*  } else if (aux == 0) {
                         if (id != null) {
                             String resposta = WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                     id.substring(id.length() - 1, id.length()));
@@ -74,7 +74,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                         id.substring(id.length() - 1, id.length()));
                             }
                         }
-                    }
+                    }*/
                 }
 
             }

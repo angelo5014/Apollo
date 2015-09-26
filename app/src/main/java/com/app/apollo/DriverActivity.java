@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.View;
@@ -18,17 +19,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import java.io.IOException;
+
 public class DriverActivity extends Activity {
 
     private static final String URL = "http://200.188.161.248:8080/WSH2/recurso/";
-    //private static final String URL = "http://200.188.161.248:8080/WSH2/recurso/consultarnumeroSOS/2";
-
     private Context contexto = this;
 
     private RelativeLayout tela;
     private boolean batata = true;
-    private double idParada;
-
+    private int idParada;
 
 
     @Override
@@ -39,7 +39,7 @@ public class DriverActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
     }
 
@@ -50,31 +50,42 @@ public class DriverActivity extends Activity {
     }
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-    private void setupElements(){
+    private void setupElements() {
         Button btOK;
 
-        tela = (RelativeLayout)findViewById(R.id.relativeLayout1);
-        btOK = (Button)findViewById(R.id.btRecolhido);
+        tela = (RelativeLayout) findViewById(R.id.relativeLayout1);
+        btOK = (Button) findViewById(R.id.btRecolhido);
 
         startGPS();
 
         btOK.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                paradaFechada(idParada);
                 tela.setBackgroundColor(getResources().getColor(R.color.Red));
+                paradaFechada();
                 batata = true;
+
+
+              /*  new CountDownTimer(30000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                    }
+                }.start();*/
             }
+
         });
     }
 
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-    public void updateView(Location locat){
+    public void updateView(Location locat) {
 
 
-        EditText edLatitude = (EditText)findViewById(R.id.lati);
-        EditText edLongitude = (EditText)findViewById(R.id.longi);
+        EditText edLatitude = (EditText) findViewById(R.id.lati);
+        EditText edLongitude = (EditText) findViewById(R.id.longi);
 
 
         Double latitude = locat.getLatitude();
@@ -86,22 +97,26 @@ public class DriverActivity extends Activity {
         Log.d("LATITUDE", latitude.toString());
         Log.d("LONGITUDE", longitude.toString());
 
-        String resposta = WebService.acesso(URL  + "atualizar" + "/" + "1" + "/" + latitude.toString() + "/" + longitude.toString());
-        System.out.println(resposta);
-        idParada = Double.parseDouble(resposta);
-        mudarTela(idParada);
+        String resposta = WebService.acesso(URL + "atualizar" + "/" + "1" + "/" + /*latitude.toString()*/600 + "/" + /*longitude.toString()*/-150);
 
+        Log.e("FODASEERRADO", resposta);
+                idParada = Double.valueOf(resposta).intValue();
+                mudarTela();
     }
 
     //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-    private void paradaFechada(double idParada){
-        String resposta = WebService.acesso(URL + "fechar_parada" + "/" + idParada);
+    private void paradaFechada() {
+        if(idParada != 0) {
+            WebService.acesso(URL + "fechar_parada" + "/" + /*idParada*/1);
+
+
+        }
     }
 
 
     //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-    private void mudarTela(double idParada){
-        if(batata) {
+    private void mudarTela() {
+        if (batata) {
             if (idParada != 0) {
                 tela.setBackgroundColor(getResources().getColor(R.color.Green));
                 mediaplayer.tocar(contexto);
@@ -115,15 +130,21 @@ public class DriverActivity extends Activity {
 
 //Metodo que inicia o GPS para coletar Longitude e Latitude
 
-    private void startGPS(){
-        LocationManager lManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    private void startGPS() {
+        LocationManager lManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         LocationListener lListener = new LocationListener() {
             public void onLocationChanged(Location locat) {
                 updateView(locat);
             }
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
-            public void onProviderEnabled(String provider) {}
-            public void onProviderDisabled(String provider) {}
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onProviderDisabled(String provider) {
+            }
         };
         lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, lListener);
     }
@@ -132,7 +153,7 @@ public class DriverActivity extends Activity {
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
     // check network connection
-    public boolean isConnected(){
+    public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected())
