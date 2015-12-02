@@ -3,63 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="@color/SeaGreen" >
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@raw/logoonibus" >
-
-    </ImageView>
+    android:background="#b37ebcb9">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/driverLayout"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Apollo"
-            android:textSize="40dp"
-            android:textStyle="bold"
-            android:textColor="@color/Black"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:text="Efetue o login"
-            android:textSize="25dp"
-            android:textColor="@color/Black"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@raw/ic_launcher1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
+
+        </ImageView>
+
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apollo"
+        android:textSize="40dp"
+        android:textColor="@color/Black"
+        android:id="@+id/apolloTxt"
+        android:layout_below="@+id/driverLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:password="false"
+        android:phoneNumber="false"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="0dp"
         android:text="Usuário"
-        android:background="@color/Gray"
-        android:textColor="@color/White"
-        android:textSize="25dp" />
+        android:layout_below="@+id/apolloTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
 
     <Button
         android:id="@+id/driver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/user"
-        android:layout_alignBottom="@+id/user"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="26dp"
-        android:background="@color/Gray"
+        android:layout_marginLeft="0dp"
         android:text="Motorista"
-        android:textColor="@color/White"
-        android:textSize="25dp" />
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/user"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

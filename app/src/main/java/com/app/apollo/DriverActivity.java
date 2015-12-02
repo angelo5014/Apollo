@@ -17,19 +17,24 @@ import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
 
+import com.app.apollo.R;
+
 public class DriverActivity extends Activity {
 
+    protected final String activity = "driverActivity";
     private static final String URL = "http://200.188.161.248:8080/WSH2/recurso/";
     private Context contexto = this;
 
-    private RelativeLayout tela;
+    private ImageView recolhidoSign;
     private boolean batata = true;
     private int idParada;
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @Override
     protected void onCreate(Bundle save) {
@@ -48,19 +53,21 @@ public class DriverActivity extends Activity {
         super.onBackPressed();
         finish();
     }
-//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     private void setupElements() {
         Button btOK;
 
-        tela = (RelativeLayout) findViewById(R.id.relativeLayout1);
+        recolhidoSign = (ImageView) findViewById(R.id.recolhidoSign);
         btOK = (Button) findViewById(R.id.btRecolhido);
 
         startGPS();
 
         btOK.setOnClickListener(new OnClickListener() {
+            @SuppressWarnings("ResourceType")
             public void onClick(View v) {
-                tela.setBackgroundColor(getResources().getColor(R.color.Red));
+                recolhidoSign.setImageResource(R.drawable.error);
                 paradaFechada();
                 batata = true;
 
@@ -78,8 +85,7 @@ public class DriverActivity extends Activity {
         });
     }
 
-
-//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public void updateView(Location locat) {
 
@@ -101,10 +107,10 @@ public class DriverActivity extends Activity {
 
         Log.e("FODASEERRADO", resposta);
                 idParada = Double.valueOf(resposta).intValue();
-                mudarTela();
+                mudarSign();
     }
 
-    //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private void paradaFechada() {
         if(idParada != 0) {
             WebService.acesso(URL + "fechar_parada" + "/" + /*idParada*/1);
@@ -114,22 +120,23 @@ public class DriverActivity extends Activity {
     }
 
 
-    //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-    private void mudarTela() {
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private void mudarSign() {
         if (batata) {
             if (idParada != 0) {
-                tela.setBackgroundColor(getResources().getColor(R.color.Green));
-                mediaplayer.tocar(contexto);
+                recolhidoSign.setImageResource(R.drawable.check);
+                mediaPlayer.tocar(contexto);
                 batata = false;
             } else {
                 batata = true;
             }
         }
     }
-//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-//Metodo que inicia o GPS para coletar Longitude e Latitude
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    //Metodo que inicia o GPS para coletar Longitude e Latitude
     private void startGPS() {
         LocationManager lManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         LocationListener lListener = new LocationListener() {
@@ -149,10 +156,8 @@ public class DriverActivity extends Activity {
         lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, lListener);
     }
 
-
-//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-    // check network connection
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //Verifica a conexão com a internet
     public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -161,9 +166,4 @@ public class DriverActivity extends Activity {
         else
             return false;
     }
-
-
-//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-
 }

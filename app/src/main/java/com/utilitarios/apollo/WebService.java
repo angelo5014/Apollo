@@ -8,11 +8,10 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.os.Message;
-import android.util.Log;
 
 public class WebService {
 
-    static String teste = "0";
+    static String test = "0";
 
     public static String acesso(String urlStr) {
         final String url = urlStr;
@@ -26,7 +25,7 @@ public class WebService {
 
                 try {
                     in = openHttpConnection(url);
-                    teste = convInputToString.fromStream(in);
+                    test = InputToString.fromStream(in);
                     in.close();
                 }
 
@@ -35,11 +34,10 @@ public class WebService {
                 }
             }
         }.start();
-        return teste;
+        return test;
     }
 
-//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
+    //~~~~~~~~~~~~~~~~~~
 
     private static InputStream openHttpConnection(String urlStr) {
         InputStream in = null;
@@ -74,8 +72,4 @@ public class WebService {
         }
         return in;
     }
-
-
-
-
 }
