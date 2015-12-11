@@ -1,43 +1,91 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout1"
+    android:id="@+id/driverLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Cyan"
+    android:background="#b37ebcb9"
     android:orientation="vertical"
     tools:context=".DriverActivity" >
 
-    <EditText
-        android:id="@+id/longi"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_above="@+id/lati"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Motorista"
+        android:id="@+id/MotoristaTxtView"
+        android:textColor="#010101"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp" />
 
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/lati"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:id="@+id/recolhidoSign"
+        android:layout_above="@+id/btRecolhido"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp"
+        android:src="@drawable/cached" />
 
     <Button
         android:id="@+id/btRecolhido"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/botaoOK"
-        android:layout_alignParentBottom="true"
+        android:layout_height="75dp"
+        android:text="Deficiente\nRecolhido"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="95dp" />
+        android:typeface="normal"
+        android:textSize="14dp"
+        android:background="#57ff8c" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:id="@+id/longi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_above="@+id/lati"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp">
+
+
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude"
+            android:id="@+id/textView"
+            android:textColor="#010101"
+            android:layout_above="@+id/longi"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:id="@+id/lati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude"
+            android:id="@+id/latitudeView"
+            android:textColor="#010101"
+            android:layout_above="@+id/lati"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

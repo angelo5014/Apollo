@@ -2,20 +2,23 @@ package com.utilitarios.apollo;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 
 import com.app.apollo.R;
 
-public class mediaplayer {
+public class mediaPlayer {
 
-    static MediaPlayer mp = null;
+    static MediaPlayer mPlayer = null;
+    static String som = "";
 
-    //Metodo que inicia o mediaplayer com um som determinado
-
+    //Metodo que inicia o mediaplayer com um determinado som
     public static void tocar(Context contexto){
 
-        mp = MediaPlayer.create(contexto, R.raw.fernanda);
+        mPlayer = MediaPlayer.create(contexto, Uri.parse(som));
 
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mPlayer.start();
+
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -24,6 +27,17 @@ public class mediaplayer {
                 mp = null;
             }
         });
-        mp.start();
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    public static void identificarActivity(String activity, String method) {
+        switch (activity) {
+            case "userTypeActivity":
+
+                break;
+            case "driverActivity":
+
+                break;
+        }
     }
 }

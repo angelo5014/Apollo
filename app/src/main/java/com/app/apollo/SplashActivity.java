@@ -15,7 +15,6 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash);
 
         new Timer().schedule(new TimerTask() {
-
             @Override
             public void run() {
                 finish();

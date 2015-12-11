@@ -19,10 +19,12 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class UserActivity extends Activity implements BeaconConsumer {
     Beacon firstBeacon;
-    boolean solParada = false;
+    boolean solicitarParada = false;
     private BeaconManager beaconManager;
 
     @Override
@@ -30,8 +32,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user);
         beaconManager = BeaconManager.getInstanceForApplication(this);
-        beaconManager.getBeaconParsers().add(new BeaconParser().
-                setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
     }
 
@@ -40,6 +41,8 @@ public class UserActivity extends Activity implements BeaconConsumer {
         super.onDestroy();
         beaconManager.unbind(this);
     }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     int aux = 0;
     String id;
@@ -51,30 +54,30 @@ public class UserActivity extends Activity implements BeaconConsumer {
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
                     firstBeacon = beacons.iterator().next();
-                    //if (!solParada) {
+                    if (!solicitarParada) {
                         if (firstBeacon.getDistance() < 3) {
                             aux++;
-                            if (aux >4) {
+                            if (aux > 4) {
                                 id = firstBeacon.getId1().toString();
                                 logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                         id.substring(id.length() - 1, id.length())));
                                 aux = 0;
-                                solParada = true;
+                                solicitarParada = true;
                             }
                         }
-                  /*  } else if (aux == 0) {
+                    } else if (aux == 0) {
                         if (id != null) {
                             String resposta = WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                     id.substring(id.length() - 1, id.length()));
-                            if (resposta.equalsIgnoreCase("1")) {
-                                solParada = true;
+                            if (resposta.equalsIgnoreCase("0")) {
+                                solicitarParada = true;
                             } else {
-                                solParada = false;
+                                solicitarParada = false;
                                 WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/fecharSol_parada/" +
                                         id.substring(id.length() - 1, id.length()));
                             }
                         }
-                    }*/
+                    }
                 }
 
             }
@@ -83,9 +86,11 @@ public class UserActivity extends Activity implements BeaconConsumer {
         try {
             beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
         } catch (RemoteException e) {
+
         }
     }
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
@@ -94,5 +99,55 @@ public class UserActivity extends Activity implements BeaconConsumer {
                 editText.append(line + "\n");
             }
         });
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private void novaSolicitacao() {
+        if (!solicitarParada) {
+            if (firstBeacon.getDistance() < 3) {
+                aux++;
+                    if (aux > 4) {
+                        id = firstBeacon.getId1().toString();
+                        logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
+                                id.substring(id.length() - 1, id.length())));
+                        aux = 0;
+                        solicitarParada = true;
+
+                        try {
+                            TimeUnit.SECONDS.sleep(30);
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                }
+            } else if (aux == 0) {
+                if (id != null) {
+                    String resposta = WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
+                            id.substring(id.length() - 1, id.length()));
+                    if (resposta.equalsIgnoreCase("0")) {
+                        solicitarParada = true;
+                } else {
+                    solicitarParada = false;
+                    WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/fecharSol_parada/" +
+                    id.substring(id.length() - 1, id.length()));
+                }
+            }
+        }
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //Implementar timer
+    public void timer() {
+        new Timer() {
+            public void start() {
+
+            }
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+            }
+        }.start();
     }
 }
