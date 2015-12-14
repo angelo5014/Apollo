@@ -1,12 +1,9 @@
 package com.app.apollo;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.utilitarios.apollo.WebService;
@@ -20,11 +17,11 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
+import java.util.TimerTask;
 
 public class UserActivity extends Activity implements BeaconConsumer {
     Beacon firstBeacon;
-    boolean solicitarParada = false;
+    boolean solicitarParada = false, statusSolicitacao = false;
     private BeaconManager beaconManager;
 
     @Override
@@ -34,6 +31,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
+
     }
 
     @Override
@@ -63,6 +61,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                         id.substring(id.length() - 1, id.length())));
                                 aux = 0;
                                 solicitarParada = true;
+                                statusSolicitacao = true;
                             }
                         }
                     } else if (aux == 0) {
@@ -71,15 +70,16 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                     id.substring(id.length() - 1, id.length()));
                             if (resposta.equalsIgnoreCase("0")) {
                                 solicitarParada = true;
+                                statusSolicitacao = true;
                             } else {
                                 solicitarParada = false;
                                 WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/fecharSol_parada/" +
                                         id.substring(id.length() - 1, id.length()));
+                                statusSolicitacao = true;
                             }
                         }
                     }
                 }
-
             }
         });
 
@@ -103,51 +103,15 @@ public class UserActivity extends Activity implements BeaconConsumer {
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    private void novaSolicitacao() {
-        if (!solicitarParada) {
-            if (firstBeacon.getDistance() < 3) {
-                aux++;
-                    if (aux > 4) {
-                        id = firstBeacon.getId1().toString();
-                        logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
-                                id.substring(id.length() - 1, id.length())));
-                        aux = 0;
-                        solicitarParada = true;
-
-                        try {
-                            TimeUnit.SECONDS.sleep(30);
-                        } catch (InterruptedException e) {
-                        }
-                    }
-                }
-            } else if (aux == 0) {
-                if (id != null) {
-                    String resposta = WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
-                            id.substring(id.length() - 1, id.length()));
-                    if (resposta.equalsIgnoreCase("0")) {
-                        solicitarParada = true;
-                } else {
-                    solicitarParada = false;
-                    WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/fecharSol_parada/" +
-                    id.substring(id.length() - 1, id.length()));
-                }
-            }
-        }
-    }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //Implementar timer
-    public void timer() {
-        new Timer() {
-            public void start() {
+    private void timer() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
             }
+        }, 30000);//30seg
 
-            public void onTick(long millisUntilFinished) {
-            }
-
-            public void onFinish() {
-            }
-        }.start();
+        statusSolicitacao = false;
     }
 }
