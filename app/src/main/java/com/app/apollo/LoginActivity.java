@@ -38,7 +38,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 //Activity não implementada
                 Intent intent = new Intent(LoginActivity.this,
-                        UserTypeActivity.class);
+                        UserActivity.class);
 
                 //Inicia a UserTypeActivity
                 startActivity(intent);
