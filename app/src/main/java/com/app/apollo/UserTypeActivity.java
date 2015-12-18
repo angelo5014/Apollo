@@ -12,9 +12,15 @@ import com.utilitarios.apollo.mediaPlayer;
 public class UserTypeActivity extends AppCompatActivity {
 
     protected final String activity = "userTypeActivity";
+    //protected final char user = getUserType(UserActivity.sendUserType());
+
+
 
     RelativeLayout defFisico, defVisual, repeat;
     Intent intent;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,5 +53,13 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected static char getUserType(char userType) {
+
+
+
+
+        return userType;
     }
 }

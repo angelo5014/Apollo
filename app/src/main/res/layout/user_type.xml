@@ -11,6 +11,23 @@
     android:id="@+id/userTypeLayout">
 
     <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="New Text"
+        android:id="@+id/referRepeatBtt"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="New Text"
+        android:id="@+id/halfScreenRefer"
+        android:layout_above="@+id/apolloTxt"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apollo"
@@ -35,121 +52,84 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/blindImg"
-        android:src="@raw/blind_xxhdpi"
-        android:layout_below="@+id/text"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wheelchairImg"
-        android:src="@raw/wheelchair_xxhdpi"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/text"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+        android:layout_above="@+id/referRepeatBtt"
+        android:layout_alignEnd="@+id/halfScreenRefer"
+        android:id="@+id/fisico">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Próximo"
-        android:id="@+id/nextBtt"
-        android:layout_gravity="center_horizontal"
-        android:layout_above="@+id/repeatBtt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fisicoIcon"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@raw/wheelchair_xxhdpi" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/repeatBtt"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/cadeiranteRBtt"
-        android:src="@raw/again_mdpi"
-        android:background="#a67ebcb9"
-        android:onClick="listenAgain" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_alignStart="@+id/cadeiranteRBtt"
-        android:layout_below="@+id/blindImg"
-        android:id="@+id/radioGroup"
-        android:layout_marginBottom="75dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/relativeLayout"
-            android:layout_above="@+id/nextBtt"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Visual"
-                android:id="@+id/cegoRBtt"
-                android:checked="false"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="80dp" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fisíca"
-                android:id="@+id/cadeiranteRBtt"
-                android:checked="false"
-                android:clickable="false"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
-        </RelativeLayout>
-    </RadioGroup>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Física"
+            android:id="@+id/legendaF"
+            android:layout_below="@+id/fisicoIcon"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/text"
-        android:id="@+id/cadeiranteLayout"
-        android:layout_above="@+id/nextBtt"
-        android:layout_toStartOf="@+id/cegoLayout"></RelativeLayout>
+        android:layout_alignStart="@+id/halfScreenRefer"
+        android:layout_above="@+id/referRepeatBtt"
+        android:id="@+id/visual">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/text"
-        android:id="@+id/cegoLayout"
-        android:layout_above="@+id/nextBtt"
-        android:layout_toEndOf="@+id/reference"></RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/visualIcon"
+            android:src="@raw/blind_xxhdpi"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Visual"
+            android:id="@+id/legendaV"
+            android:layout_below="@+id/visualIcon"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cegoLayout"
+        android:layout_alignTop="@+id/referRepeatBtt"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/repeatBtt"
-        android:id="@+id/proxActivity"></RelativeLayout>
+        android:id="@+id/repeat">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/nextBtt"
-        android:id="@+id/repeatLayout"></RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/repeatIcon"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@raw/again_mdpi" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/reference"
-        android:layout_alignBottom="@+id/apolloTxt"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Ouvir novamente"
+            android:id="@+id/legendaR"
+            android:layout_below="@+id/repeatIcon"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </RelativeLayout>
