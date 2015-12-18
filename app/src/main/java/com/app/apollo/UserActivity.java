@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.utilitarios.apollo.WebService;
@@ -20,9 +22,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class UserActivity extends Activity implements BeaconConsumer {
+    static final char userType = 'f';
     Beacon firstBeacon;
     boolean solicitarParada = false, statusSolicitacao = false, onCounting = false;
     private BeaconManager beaconManager;
+    protected Button sendRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,14 @@ public class UserActivity extends Activity implements BeaconConsumer {
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
-        timer();
+
+
+        sendRequest = (Button) findViewById(R.id.sendRequest);
+        sendRequest.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onBeaconServiceConnect();
+            }
+        });
     }
 
     @Override
@@ -49,11 +60,14 @@ public class UserActivity extends Activity implements BeaconConsumer {
     public void onBeaconServiceConnect() {
         if(solicitarParada && statusSolicitacao) {
             if(!onCounting) {
-                logToDisplay("Starting Timer");
+                logToDisplay("Starting timer");
                 timer();
             }
         } else {
             logToDisplay("Sending request to server");
+            solicitarParada = true;
+            statusSolicitacao = true;
+
             beaconManager.setRangeNotifier(new RangeNotifier() {
                 @Override
                 public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
@@ -67,8 +81,8 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                     logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                             id.substring(id.length() - 1, id.length())));
                                     aux = 0;
-                                    solicitarParada = true;
-                                    statusSolicitacao = true;
+                                    //solicitarParada = true;
+                                    //statusSolicitacao = true;
                                 }
                             }
                         } else if (aux == 0) {
@@ -90,6 +104,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
                 }
             });
         }
+
         try {
             beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
         } catch (RemoteException e) {
@@ -116,10 +131,16 @@ public class UserActivity extends Activity implements BeaconConsumer {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                solicitarParada = false;
                 statusSolicitacao = false;
                 onCounting = false;
-                logToDisplay("Working");
+                logToDisplay("Timer finished");
             }
         }, 30000);//30seg
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    protected static void sendUserType() {
+        UserTypeActivity.getUserType(userType);
     }
 }

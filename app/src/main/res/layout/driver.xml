@@ -39,7 +39,8 @@
         android:layout_centerHorizontal="true"
         android:typeface="normal"
         android:textSize="14dp"
-        android:background="#57ff8c" />
+        android:background="#57ff8c"
+        android:shadowColor="#100e0e" />
 
     <RelativeLayout
         android:layout_width="match_parent"
