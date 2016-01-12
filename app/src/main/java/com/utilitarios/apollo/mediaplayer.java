@@ -11,25 +11,7 @@ public class mediaPlayer {
 
     static MediaPlayer mPlayer = null;
 
-    /*
-    public static void getUserType(String def_fisico) {
-        switch(def_fisico) {
-            case "0":
-                som = "R.raw.audio.UserTypeAudio";
-                break;
-            case "1":
-                som = "R.raw.audio.selectFisica";
-                break;
-            case "2":
-                som = "R.raw.audio.selectVisual";
-                break;
-            case "3":
-                som = "R.raw.audio.proxParada";
-        }
-    }
-    */
-
-    //Metodo que inicia o mediaplayer com um determinado som
+    //Metodo que inicia o mediaPlayer com um determinado som
     public static void tocar(String user, Context contexto){
         switch(user) {
             case "0":

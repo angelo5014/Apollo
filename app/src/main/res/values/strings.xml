@@ -15,5 +15,9 @@
     <string name="title_activity_def_visual">defVisualActivity</string>
     <string name="title_activity_fisico">Fisico</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_new_login">newLoginActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>
