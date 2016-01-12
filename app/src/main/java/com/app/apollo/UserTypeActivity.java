@@ -30,7 +30,7 @@ public class UserTypeActivity extends AppCompatActivity {
                 userTypeDef = "defFisico";
 
                 //Sem distinção de activitys no momento
-                intent = new Intent(UserTypeActivity.this, UserActivity.class);
+                intent = new Intent(UserTypeActivity.this, defFisicoActivity.class);
                 startActivity(intent);
 
                 mediaPlayer.parar();
@@ -44,7 +44,7 @@ public class UserTypeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userTypeDef = "defVisual";
 
-                intent = new Intent(UserTypeActivity.this, UserActivity.class);
+                intent = new Intent(UserTypeActivity.this, defVisualActivity.class);
                 startActivity(intent);
 
                 mediaPlayer.parar();

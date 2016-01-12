@@ -13,5 +13,7 @@
     <string name="title_activity_user_type">UserTypeActivity</string>
     <string name="title_activity_def_fisico">defFisicoActivity</string>
     <string name="title_activity_def_visual">defVisualActivity</string>
+    <string name="title_activity_fisico">Fisico</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

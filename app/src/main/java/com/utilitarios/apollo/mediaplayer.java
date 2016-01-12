@@ -12,8 +12,8 @@ public class mediaPlayer {
     static MediaPlayer mPlayer = null;
 
     /*
-    public static void getUserType(String user) {
-        switch(user) {
+    public static void getUserType(String def_fisico) {
+        switch(def_fisico) {
             case "0":
                 som = "R.raw.audio.UserTypeAudio";
                 break;

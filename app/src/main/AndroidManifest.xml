@@ -55,19 +55,14 @@
             android:name=".DriverActivity"
             android:label="@string/title_activity_driver" />
         <activity
-            android:name=".UserActivity"
+            android:name=".defFisicoActivity"
             android:label="@string/title_activity_user" />
         <activity
             android:name=".UserTypeActivity"
             android:label="@string/title_activity_user_type" />
         <activity
-            android:name=".defFisicoActivity"
-            android:label="@string/title_activity_def_fisico"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".defVisualActivity"
-            android:label="@string/title_activity_def_visual"
-            android:theme="@style/AppTheme"></activity>
+            android:label="@string/title_activity_def_visual" />
     </application>
 
 </manifest>

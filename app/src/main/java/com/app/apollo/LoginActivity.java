@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.app.apollo.UserTypeActivity;
-
 public class LoginActivity extends Activity {
     UserTypeActivity userTypeActivity = new UserTypeActivity();
 
@@ -44,12 +42,12 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 switch((userTypeActivity.userTypeDef)) {
                     case "defFisico":
-                        intent = new Intent(LoginActivity.this, UserActivity.class);
+                        intent = new Intent(LoginActivity.this, defFisicoActivity.class);
                         //Inicia a defFisicoActivity
                         startActivity(intent);
                         break;
                     case "defVisual":
-                        intent = new Intent(LoginActivity.this, UserActivity.class);
+                        intent = new Intent(LoginActivity.this, defVisualActivity.class);
                         //Inicia a defVisualActivity
                         startActivity(intent);
                         break;
