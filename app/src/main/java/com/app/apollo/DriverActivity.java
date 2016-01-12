@@ -41,6 +41,8 @@ public class DriverActivity extends Activity {
         super.onCreate(save);
         setContentView(R.layout.driver);
         setupElements();
+
+        //mediaPlayer.getUserType("3");
     }
 
     @Override
@@ -105,7 +107,7 @@ public class DriverActivity extends Activity {
 
         String resposta = WebService.acesso(URL + "atualizar" + "/" + "1" + "/" + /*latitude.toString()*/600 + "/" + /*longitude.toString()*/-150);
 
-        Log.e("FODASEERRADO", resposta);
+        Log.e("ERRADO", resposta);
                 idParada = Double.valueOf(resposta).intValue();
                 mudarSign();
     }
@@ -126,7 +128,7 @@ public class DriverActivity extends Activity {
         if (batata) {
             if (idParada != 0) {
                 recolhidoSign.setImageResource(R.drawable.check);
-                mediaPlayer.tocar(contexto);
+                mediaPlayer.tocar("3", contexto);
                 batata = false;
             } else {
                 batata = true;

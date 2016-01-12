@@ -11,5 +11,7 @@
     <string name="title_activity_user">User</string>
     <string name="title_activity_ranging">RangingActivity</string>
     <string name="title_activity_user_type">UserTypeActivity</string>
+    <string name="title_activity_def_fisico">defFisicoActivity</string>
+    <string name="title_activity_def_visual">defVisualActivity</string>
 
 </resources>

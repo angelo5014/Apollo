@@ -18,11 +18,12 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import com.app.apollo.UserTypeActivity;
 
 public class UserActivity extends Activity implements BeaconConsumer {
-    static final char userType = 'f';
+    UserTypeActivity userTypeActivity = new UserTypeActivity();
+
     Beacon firstBeacon;
     boolean solicitarParada = false, statusSolicitacao = false, onCounting = false;
     private BeaconManager beaconManager;
@@ -36,6 +37,7 @@ public class UserActivity extends Activity implements BeaconConsumer {
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
 
+        logToDisplay(userTypeActivity.userTypeDef);
 
         sendRequest = (Button) findViewById(R.id.sendRequest);
         sendRequest.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +66,6 @@ public class UserActivity extends Activity implements BeaconConsumer {
                 timer();
             }
         } else {
-            logToDisplay("Sending request to server");
-            solicitarParada = true;
-            statusSolicitacao = true;
-
             beaconManager.setRangeNotifier(new RangeNotifier() {
                 @Override
                 public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
@@ -78,11 +76,15 @@ public class UserActivity extends Activity implements BeaconConsumer {
                                 aux++;
                                 if (aux > 4) {
                                     id = firstBeacon.getId1().toString();
+
+                                    logToDisplay("Sending request to server");
                                     logToDisplay(WebService.acesso("http://200.188.161.248:8080/WSH2/recurso/abrir_parada/" +
                                             id.substring(id.length() - 1, id.length())));
+
                                     aux = 0;
-                                    //solicitarParada = true;
-                                    //statusSolicitacao = true;
+
+                                    solicitarParada = true;
+                                    statusSolicitacao = true;
                                 }
                             }
                         } else if (aux == 0) {
@@ -139,8 +141,4 @@ public class UserActivity extends Activity implements BeaconConsumer {
         }, 30000);//30seg
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    protected static void sendUserType() {
-        UserTypeActivity.getUserType(userType);
-    }
 }

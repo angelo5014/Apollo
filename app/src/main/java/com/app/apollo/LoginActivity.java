@@ -7,11 +7,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.app.apollo.UserTypeActivity;
+
 public class LoginActivity extends Activity {
+    UserTypeActivity userTypeActivity = new UserTypeActivity();
+
+    Intent intent;
 
     //Declaração dos botões
     Button btUser;
     Button btDriver;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +31,7 @@ public class LoginActivity extends Activity {
         //Listener do btDriver
         btDriver.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,
-                        DriverActivity.class);
+                intent = new Intent(LoginActivity.this, DriverActivity.class);
 
                 //Inicia DriverActivity
                 startActivity(intent);
@@ -36,12 +42,26 @@ public class LoginActivity extends Activity {
         //Listener do btUser
         btUser.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                //Activity não implementada
-                Intent intent = new Intent(LoginActivity.this,
-                        UserTypeActivity.class);
+                switch((userTypeActivity.userTypeDef)) {
+                    case "defFisico":
+                        intent = new Intent(LoginActivity.this, UserActivity.class);
+                        //Inicia a defFisicoActivity
+                        startActivity(intent);
+                        break;
+                    case "defVisual":
+                        intent = new Intent(LoginActivity.this, UserActivity.class);
+                        //Inicia a defVisualActivity
+                        startActivity(intent);
+                        break;
 
-                //Inicia a UserTypeActivity
-                startActivity(intent);
+                    default:
+                        //Activity não implementada
+                        intent = new Intent(LoginActivity.this,
+                                UserTypeActivity.class);
+
+                        //Inicia a UserTypeActivity
+                        startActivity(intent);
+                }
             }
         });
     }

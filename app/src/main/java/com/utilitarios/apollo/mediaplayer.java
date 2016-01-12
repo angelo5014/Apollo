@@ -5,21 +5,50 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 
 import com.app.apollo.R;
+import com.app.apollo.UserTypeActivity;
 
 public class mediaPlayer {
 
     static MediaPlayer mPlayer = null;
-    static String som = "";
+
+    /*
+    public static void getUserType(String user) {
+        switch(user) {
+            case "0":
+                som = "R.raw.audio.UserTypeAudio";
+                break;
+            case "1":
+                som = "R.raw.audio.selectFisica";
+                break;
+            case "2":
+                som = "R.raw.audio.selectVisual";
+                break;
+            case "3":
+                som = "R.raw.audio.proxParada";
+        }
+    }
+    */
 
     //Metodo que inicia o mediaplayer com um determinado som
-    public static void tocar(Context contexto){
+    public static void tocar(String user, Context contexto){
+        switch(user) {
+            case "0":
+                mPlayer = MediaPlayer.create(contexto, R.raw.user_type_audio);
+                break;
+            case "1":
+                mPlayer = MediaPlayer.create(contexto, R.raw.select_fisica);
+                break;
+            case "2":
+                mPlayer = MediaPlayer.create(contexto, R.raw.select_visual);
+                break;
+            case "3":
+                mPlayer = MediaPlayer.create(contexto, R.raw.prox_parada);
+        }
 
-        mPlayer = MediaPlayer.create(contexto, Uri.parse(som));
 
         mPlayer.start();
 
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.stop();
@@ -29,15 +58,7 @@ public class mediaPlayer {
         });
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~
-    public static void identificarActivity(String activity, String method) {
-        switch (activity) {
-            case "userTypeActivity":
-
-                break;
-            case "driverActivity":
-
-                break;
-        }
+    public static void parar() {
+        mPlayer.stop();
     }
 }
