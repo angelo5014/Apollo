@@ -2,17 +2,18 @@ package com.utilitarios.apollo;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 
 import com.app.apollo.R;
-import com.app.apollo.UserTypeActivity;
 
 public class mediaPlayer {
 
-    static MediaPlayer mPlayer = null;
+    static MediaPlayer mPlayer;
+    static float volume = 1;
 
     //Metodo que inicia o mediaPlayer com um determinado som
     public static void tocar(String user, Context contexto){
+
+
         switch(user) {
             case "0":
                 mPlayer = MediaPlayer.create(contexto, R.raw.user_type_audio);
@@ -27,7 +28,7 @@ public class mediaPlayer {
                 mPlayer = MediaPlayer.create(contexto, R.raw.prox_parada);
         }
 
-
+        mPlayer.setVolume(volume, volume);
         mPlayer.start();
 
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -42,5 +43,9 @@ public class mediaPlayer {
 
     public static void parar() {
         mPlayer.stop();
+    }
+
+    public static void volume(float vol) {
+        volume = vol;
     }
 }

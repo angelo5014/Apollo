@@ -34,7 +34,7 @@ public class UserTypeActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 mediaPlayer.parar();
-                mediaPlayer.tocar("1", contexto);
+                //mediaPlayer.tocar("1", contexto);
             }
         });
 
@@ -48,7 +48,7 @@ public class UserTypeActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 mediaPlayer.parar();
-                mediaPlayer.tocar("2", contexto);
+                //mediaPlayer.tocar("2", contexto);
             }
         });
 

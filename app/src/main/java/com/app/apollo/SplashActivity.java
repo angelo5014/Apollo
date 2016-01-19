@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
                 finish();
 
                 Intent intent = new Intent();
-                intent.setClass(SplashActivity.this, newLoginActivity.class);
+                intent.setClass(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         }, 4000);
