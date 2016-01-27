@@ -4,7 +4,7 @@
     android:id="@+id/driverLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b37ebcb9"
+    android:background="#4DD0E1"
     android:orientation="vertical"
     tools:context=".DriverActivity" >
 
@@ -39,7 +39,7 @@
         android:layout_centerHorizontal="true"
         android:typeface="normal"
         android:textSize="14dp"
-        android:background="#57ff8c" />
+        android:background="#00E676" />
 
     <RelativeLayout
         android:layout_width="match_parent"

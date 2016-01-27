@@ -50,19 +50,28 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".DriverActivity"
-            android:label="@string/title_activity_driver" >
-        </activity>
+            android:label="@string/title_activity_driver" />
         <activity
-            android:name=".UserActivity"
-            android:label="@string/title_activity_user" >
-        </activity>
+            android:name=".defFisicoActivity"
+            android:label="@string/title_activity_user" />
         <activity
             android:name=".UserTypeActivity"
-            android:label="@string/title_activity_user_type" >
+            android:label="@string/title_activity_user_type" />
+        <activity
+            android:name=".defVisualActivity"
+            android:label="@string/title_activity_def_visual" />
+        <activity
+            android:name=".newLoginActivity"
+            android:label="@string/title_activity_new_login"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme" >
         </activity>
     </application>
 

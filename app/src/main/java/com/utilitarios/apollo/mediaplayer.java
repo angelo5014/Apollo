@@ -2,24 +2,36 @@ package com.utilitarios.apollo;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 
 import com.app.apollo.R;
 
 public class mediaPlayer {
 
-    static MediaPlayer mPlayer = null;
-    static String som = "";
+    static MediaPlayer mPlayer;
+    static float volume = 1;
 
-    //Metodo que inicia o mediaplayer com um determinado som
-    public static void tocar(Context contexto){
+    //Metodo que inicia o mediaPlayer com um determinado som
+    public static void tocar(String user, Context contexto){
 
-        mPlayer = MediaPlayer.create(contexto, Uri.parse(som));
 
+        switch(user) {
+            case "0":
+                mPlayer = MediaPlayer.create(contexto, R.raw.user_type_audio);
+                break;
+            case "1":
+                mPlayer = MediaPlayer.create(contexto, R.raw.select_fisica);
+                break;
+            case "2":
+                mPlayer = MediaPlayer.create(contexto, R.raw.select_visual);
+                break;
+            case "3":
+                mPlayer = MediaPlayer.create(contexto, R.raw.prox_parada);
+        }
+
+        mPlayer.setVolume(volume, volume);
         mPlayer.start();
 
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.stop();
@@ -29,15 +41,11 @@ public class mediaPlayer {
         });
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~
-    public static void identificarActivity(String activity, String method) {
-        switch (activity) {
-            case "userTypeActivity":
+    public static void parar() {
+        mPlayer.stop();
+    }
 
-                break;
-            case "driverActivity":
-
-                break;
-        }
+    public static void volume(float vol) {
+        volume = vol;
     }
 }
